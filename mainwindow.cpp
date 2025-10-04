@@ -5,7 +5,7 @@
 // QString led_path = "/sys/class/gpio/gpio4/value";
 
 // test led file
-QString led_path = "./file.txt";
+QString led_path = "/sys/class/gpio/gpio4/value";
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -13,8 +13,8 @@ MainWindow::MainWindow(QWidget *parent)
     , _led_accessibale(1)
 {
     ui->setupUi(this);
-    QObject::connect(ui->LedButton, SIGNAL(pressed()) , this, SLOT(on_LedButton_pressed()));
-    QObject::connect(ui->LedButton, SIGNAL(released()) , this, SLOT(on_LedButton_released()));
+    QObject::connect(ui->Toggle, SIGNAL(pressed()) , this, SLOT(on_LedButton_pressed()));
+    QObject::connect(ui->Toggle, SIGNAL(released()) , this, SLOT(on_LedButton_released()));
 
     l = new Led{led_path};
 
@@ -40,12 +40,14 @@ qint8 MainWindow::is_led_accessibale()
 void MainWindow::on_LedButton_pressed()
 {
     l->turn_led_on();
-    qDebug() << "Led on \n";
-}
+    ui->LCD->display(1);
+    qDebug() << "button pressed \n";
 
+}
 
 void MainWindow::on_LedButton_released()
 {
     l->turn_led_off();
-    qDebug() << "Led off \n";
+    ui->LCD->display(0);
+    qDebug() << "button released \n";
 }

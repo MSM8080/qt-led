@@ -1,3 +1,6 @@
+#ifndef LED_SWITCH_H
+#define LED_SWITCH_H
+
 #include <QString>
 #include <QFile>
 // --------------------------------------------------
@@ -16,5 +19,7 @@ class Led
         const char* on;
         const char* off;
 };
+
+#endif // LED_SWITCH_H
 
 
